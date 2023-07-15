@@ -1,6 +1,7 @@
 import yaml
 import json
-from pydantic import BaseSettings, PyObject
+from pydantic.types import ImportString
+from pydantic_settings import BaseSettings
 from typing import Dict, Optional
 
 
@@ -13,7 +14,7 @@ class CognitoSettings(BaseSettings):
     jwt_header_name: str
     jwt_header_prefix: str
     userpools: Dict
-    custom_cognito_token_model: Optional[PyObject]
+    custom_cognito_token_model: Optional[ImportString]
 
     class Config:
         extra = "ignore"

@@ -3,7 +3,7 @@ from typing import Dict, Any
 from cognitojwt import CognitoJWTException, decode as cognito_jwt_decode
 from fastapi.exceptions import HTTPException
 from jose import JWTError
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 from requests.exceptions import ConnectionError as HttpConnectionError
 from starlette.requests import Request
 
@@ -16,7 +16,7 @@ class CognitoAuth(object):
     Base class which handles config and provides required methods.
     """
 
-    def __init__(self, settings: BaseSettings, userpool_name: str = None):
+    def __init__(self, settings: BaseSettings, userpool_name: str):
         """
         Initialization
         :param settings: BaseSettings object with configurations
@@ -67,7 +67,7 @@ class CognitoAuth(object):
     def _get_required_setting(
             settings,
             config,
-            config_key: str = None
+            config_key: str | None = None
     ) -> [str, Dict]:
         """
         This method checks if required setting is provided in `settings`
@@ -109,7 +109,7 @@ class CognitoAuth(object):
         return val
 
     @staticmethod
-    def _get_optional_setting(settings, config, default_value) -> any:
+    def _get_optional_setting(settings, config, default_value) -> Any:
         """
         Set optional setting if provided
         :param settings: BaseSettings object from which app should read
